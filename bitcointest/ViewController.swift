@@ -8,14 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate, getCoinDataDelegate{
-    func getCoinData(Currency: String, Price: Double) {
+    func getCoinData(Currency: String, Price: String) {
         DispatchQueue.main.async {
             
-            if let priceDouble = Double?(Price) {
-                self.textView1.text = String(priceDouble)
-            } else {
-                print("Unable to convert Price to a double.")
-            }
+            
+            self.textView1.text = Price
+           
             self.textView2.text = Currency
                }
            }

@@ -9,7 +9,7 @@ import Foundation
 
 protocol getCoinDataDelegate {
     
-    func getCoinData(Currency: String, Price: Double)
+    func getCoinData(Currency: String, Price: String)
     func getError(error:Error)
 }
 
@@ -34,10 +34,8 @@ struct coinData
                 }
                 if let safeData = data {
                     if let currencyPricing = ParseJSON(dataCapture: safeData) {
+                        self.delegate?.getCoinData(Currency: Currency, Price: currencyPricing.priceUsd!)
                         
-                       
-                        self.delegate?.getCoinData(Currency: Currency, Price: currencyPricing)
-                        print(currencyPricing)
                     }
                 }
                 
@@ -46,19 +44,15 @@ struct coinData
         }
         
     }
-    func ParseJSON(dataCapture: Data) -> Double? {
+    func ParseJSON(dataCapture: Data) -> data? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(CoinStructure.self, from: dataCapture)
-            let id = decodedData.data[0].id
-            let symbol = decodedData.data[0].symbol
+            let id = decodedData.data[0].rank
+            let symbol = decodedData.data[0].baseSymbol
             let price = decodedData.data[0].priceUsd
-            guard let price = Double(price) else {
-                        print("Unable to convert price to a double.")
-                        return nil
-                    }
-            let coinInfo = CoinInfo(id: id, symbol: symbol, priceUsd: price)
-            return price
+            let coinInfo = data(rank: id, baseSymbol: symbol, priceUsd: price)
+            return coinInfo
         } catch let error {
             print("Error decoding JSON: \(error)")
             return nil

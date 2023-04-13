@@ -11,5 +11,5 @@ struct CoinInfo
 {
     let id: String
     let symbol: String
-    let priceUsd: Double
+    let priceUsd: String
 }
