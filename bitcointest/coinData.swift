@@ -20,10 +20,10 @@ struct coinData
   
     var delegate: getCoinDataDelegate?
     let url = "https://api.coincap.io/v2/assets"
-    let array = ["bitcoin", "ethereum", "tether","binance-coin","usd-coin","xrp","cardano","dogecoin"]
+    let array =  ["BTC", "ETH", "LTC", "XRP", "BCH", "EOS", "ETC", "ZEC", "BAT"]
     
     func getCurrency(Currency: String) {
-        
+        let url = "https://api.coincap.io/v2/markets?baseSymbol=\(Currency)"
         if let urlString = URL(string: url) {
             
             let session = URLSession(configuration: .default)
