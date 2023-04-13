@@ -11,8 +11,9 @@ class ViewController: UIViewController,UIPickerViewDataSource,UIPickerViewDelega
     func getCoinData(Currency: String, Price: String) {
         DispatchQueue.main.async {
             
-            
-            self.textView1.text = Price
+           
+
+            self.textView1.text = String(format: "%.2f", Double(Price) ?? 0.0)
            
             self.textView2.text = Currency
                }
